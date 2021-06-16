@@ -7,7 +7,7 @@
  * @category    plugin
  * @internal    @events OnDocFormSave,OnManagerMenuPrerender
  * @internal    @modx_category Content
- * @internal    @properties &parent=Родитель;text; &year_template=Шаблон года;text; &alias_visible_year=Год участвует в url;list;false,true;false &month_template=Шаблон месяца;text; &alias_visible_month=Месяц участвует в url;list;false,true;false &donthit=Показывать дочерние ресурсы месяца;list;false,true;false &nopublish_empty=Снять с публткации пустые месяца;list;true,false;true
+ * @internal    @properties &parent=Родитель;text; &year_template=Шаблон года;text; &alias_visible_year=Год участвует в url;list;false,true;false &month_template=Шаблон месяца;text; &alias_visible_month=Месяц участвует в url;list;false,true;false &donthit=Показывать дочерние ресурсы месяца;list;false,true;false 
  * @internal    @disabled 0
  * @internal    @installset base
  */
@@ -94,16 +94,5 @@ if (($modx->event->name=='OnDocFormSave') && ($_REQUEST['parent']==$parent)){
 		$month = date('m',$row['createdon']);		
 		$parent = $folders_current[$year][$month];		
 		$modx->db->update(['parent'=>$parent],$modx->getFullTableName('site_content'),'id='.$row['id']);
-	}
-	if ($nopublish_empty){
-		$filledin = $modx->db->getValue('
-		SELECT GROUP_CONCAT(c1.id) FROM '.$modx->getFullTableName('site_content').' as c1
-		right join '.$modx->getFullTableName('site_content').' as c2
-		on c2.parent = c1.id
-		where c1.template='.$month_template);
-		
-		if ($filledin){			
-			$modx->db->query('Update '.$modx->getFullTableName('site_content').' set `published` = 0 where `template` = '.$month_template.' and `id` not in ('.$filledin.')');
-		}
-	}
+	}	
 }
