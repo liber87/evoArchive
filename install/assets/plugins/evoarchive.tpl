@@ -19,7 +19,7 @@ if ($modx->event->name == 'OnManagerMenuPrerender') {
 }
 if (($modx->event->name=='OnDocFormSave') && ($_REQUEST['parent']==$parent)){	
 	$folders_current = array();
-	$months = [	'01'=>'Январь','02'=>'Февраль','03'=>'Март','04'=>'Апрель','05'=>'Май','06'=>'Июнь', '07'=>'Июль','08'=>'Август','09'=>'Сенябрь','10'=>'Октябрь','11'=>'Ноябрь','12'=>'Декабрь'];
+	$months = [	'01'=>'Январь','02'=>'Февраль','03'=>'Март','04'=>'Апрель','05'=>'Май','06'=>'Июнь', '07'=>'Июль','08'=>'Август','09'=>'Сентябрь','10'=>'Октябрь','11'=>'Ноябрь','12'=>'Декабрь'];
 
 	$res = $modx->db->query('Select id,pagetitle from '.$modx->getFullTableName('site_content').' where parent = '.$parent.' and template = '.$year_template);
 	while ($row = $modx->db->getRow($res)){
